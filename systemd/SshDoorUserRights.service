@@ -1,0 +1,17 @@
+[Unit]
+Description=Sets the user rights of gpio 4
+Requires=network.target
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+SyslogIdentifier=SshDoorUserRights
+ExecStart=/usr/bin/echo 4 > /sys/class/gpio/export
+ExecStart=/usr/bin/echo out > /sys/class/gpio/gpio4/direction
+ExecStart=/usr/bin/echo 0 > /sys/class/gpio/gpio4/value
+ExecStart=/usr/bin/chown door:door /sys/class/gpio/gpio4/value
+ExecStart=/usr/bin/chmod 200 /sys/class/gpio/gpio4/value
+
+[Install]
+WantedBy=multi-user.target

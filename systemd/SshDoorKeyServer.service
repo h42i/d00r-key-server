@@ -1,0 +1,14 @@
+[Unit]
+Description=Accepts the ssh key requests
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+User=door
+SyslogIdentifier=SshDoorKeyServer
+WorkingDirectory=/home/door
+ExecStart=/home/door/keyserver
+
+[Install]
+WantedBy=multi-user.target
